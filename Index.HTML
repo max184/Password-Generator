@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Advanced Password Generator</title>
+<style>
+    .slidecontainer {
+      width: 100%;
+    }
+    
+    .slider {
+      -webkit-appearance: none;
+      width: 25%;
+      height: 25px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+    
+    .slider:hover {
+      opacity: 1;
+    }
+    
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #0415aa;
+      cursor: pointer;
+    }
+    
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #0415aa;
+      cursor: pointer;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+<!-- Password Length -->
+<label for="length">Password Length:</label>
+<input type="range" id="length" name="length" min="8" max="900" value="8" class="slider" oninput="this.nextElementSibling.value = this.value">
+<output>8</output>
+
+
+<!-- Character Types -->
+<fieldset>
+<legend>Character Types</legend>
+<input type="checkbox" id="uppercase" name="uppercase" value="on">
+<label for="uppercase">Uppercase</label>
+<br>
+<input type="checkbox" id="lowercase" name="lowercase" value="on">
+<label for="lowercase">Lowercase</label>
+<br>
+<input type="checkbox" id="numbers" name="numbers" value="on">
+<label for="numbers">Numbers</label>
+<br>
+<input type="checkbox" id="symbols" name="symbols" value="on">
+<label for="symbols">Symbols</label>
+</fieldset>
+
+<!-- Password -->
+<label for="password">Password:</label>
+<input type="text" id="password" name="password">
+
+<!-- Generate Button -->
+<button type="button" onclick="generate()">Generate</button>
+
+<script>
+// Get character set for each type
+function getUpperCase() {
+  return "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+}
+
+function getLowerCase() {
+  return "abcdefghijklmnopqrstuvwxyz";
+}
+
+function getNumbers() {
+  return "0123456789";
+}
+
+function getSymbols() {
+  return "!@#$%^&*()";
+}
+
+// Generate password
+function generate() {
+  // Get length from user input
+  var length = document.getElementById("length").value;
+  
+  // Get character types from user input
+  var uppercase = document.getElementById("uppercase").checked;
+  var lowercase = document.getElementById("lowercase").checked;
+  var numbers = document.getElementById("numbers").checked;
+  var symbols = document.getElementById("symbols").checked;
+  
+  // Initialize password string
+  var password = "";
+  
+  // Build character set
+  var characterSet = "";
+  if (uppercase) {
+    characterSet += getUpperCase();
+  }
+  if (lowercase) {
+    characterSet += getLowerCase();
+  }
+  if (numbers) {
+    characterSet += getNumbers();
+  }
+  if (symbols) {
+    characterSet += getSymbols();
+  }
+  
+  // Generate password
+  for (var i = 0; i < length; i++) {
+    password += characterSet.charAt(Math.floor(Math.random() * characterSet.length));
+  }
+  
+  // Set password
+  document.getElementById("password").value = password;
+}
+</script>
+
+</body>
+</html>
